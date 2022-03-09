@@ -35,7 +35,9 @@ function gerarNuvens() {
     if (frameCount % 60 === 0) {
         var nuvem = createSprite(200,90,24,57);
         nuvem.velocityX = -8
-
+        nuvem.scale = 0.5;
+        nuvem.lifetime = 300
+        
         var rand = Math.round(random(1,2));
         switch(rand) {
             case 1: nuvem.addImage(imagemNuvem1)
@@ -44,8 +46,4 @@ function gerarNuvens() {
             break;
     default: break;}
     }
-    nuvem.scale = 0.5;
-    nuvem.lifetime = 300
-
-
 }
