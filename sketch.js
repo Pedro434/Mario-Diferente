@@ -1,5 +1,5 @@
 var mario
-var marioRight,marioLeft,marioJump,marioIdle
+var marioRight,marioLeft,marioJump,marioIdle,marioDuck
 var fundo
 var nuvem1
 var nuvem2
@@ -8,6 +8,7 @@ var imagemNuvem2
 var ground,groundImage
 var lastKey = 0
 var ground2
+var goomba,goombaAnimation
 
 function preload(){
     fundo = loadImage("marioceu.png")
@@ -17,8 +18,10 @@ function preload(){
     marioRight = loadAnimation("marioandano.png","marioparado.png")
     marioLeft = loadAnimation("marioandanoesquerda.png","marioparadoesquerda.png")
     marioJump = loadAnimation("mariopulando.png")
+    marioDuck = loadAnimation("marioagachado.png")
     imagemNuvem1 = loadImage("marionuvens1.png")
     imagemNuvem2 = loadImage("marionuvens2.png")
+    goombaAnimation = loadAnimation("goomba1","goomba2")
 }
 function setup(){
     createCanvas(800,400)
@@ -28,6 +31,7 @@ function setup(){
     mario.addAnimation("andandoDireita",marioRight)
     mario.addAnimation("andandoEsquerda",marioLeft)
     mario.addAnimation("pulando",marioJump)
+    mario.addAnimation("agachado",marioDuck)
 
     mario.scale = 0.10
     ground=createSprite(0,355,displayWidth,150)
@@ -40,16 +44,21 @@ function setup(){
     ground2.scale = 1.6
     ground2.debug = true
 
+    goomba=createSprite(-458,259,15,15)
+    goomba.addAnimation("goombaAndando",goombaAnimation)
+    goomba.scale = 0.10
+
+
 }
 function draw(){
     background(fundo)
 
-    if(keyDown("a")){
+    if(keyDown("LEFT_ARROW")){
         mario.x -= 4
         mario.changeAnimation("andandoEsquerda",marioLeft)
         mario.scale = 0.10
     }
-    else if(keyDown("d")){
+    else if(keyDown("RIGHT_ARROW")){
         mario.x += 4
         mario.changeAnimation("andandoDireita",marioRight)
         mario.scale = 0.10
@@ -57,6 +66,10 @@ function draw(){
     else if(keyDown("space") && mario.y > 170){
         mario.velocityY = -10;
         
+    }
+    else if(keyDown("DOWN_ARROW")){
+        mario.changeAnimation("agachado",marioDuck)
+        mario.scale = 0.1
     }
     else if(mario.y < 259.3 ){
         mario.changeAnimation("pulando",marioJump);
